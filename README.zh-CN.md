@@ -2,27 +2,30 @@
 
 > **语言：** 简体中文 · [English](README.md)
 
-基于 CMake 的 Windows 工程，在同一解决方案中编译多个动态链接库（`.dll`），涵盖通用工具、数学相关模块以及与 Python C API 交互的桥接库。
+基于 CMake 的 Windows 工程，在同一解决方案中编译多个动态链接库（`.dll`）或静态库，涵盖通用工具、数学相关模块以及与 Python C API 交互的桥接库。
 
 ---
 
 ## 目录
 
-1. [概述](#概述)
-2. [构建产物](#构建产物)
-3. [环境要求](#环境要求)
-4. [仓库结构](#仓库结构)
-5. [编译](#编译)
-6. [输出目录](#输出目录)
-7. [Python 链接说明](#python-链接说明)
-8. [开发者协议](#开发者协议)
-9. [MIT 许可证](#mit-许可证)
+- [原生 DLL 工程（`dll`）](#原生-dll-工程dll)
+  - [目录](#目录)
+  - [概述](#概述)
+  - [构建产物](#构建产物)
+  - [环境要求](#环境要求)
+  - [仓库结构](#仓库结构)
+  - [编译](#编译)
+  - [输出目录](#输出目录)
+  - [Python 链接说明](#python-链接说明)
+  - [开发者协议](#开发者协议)
+  - [静态库编译（static）](#静态库编译static)
+  - [MIT 许可证](#mit-许可证)
 
 ---
 
 ## 概述
 
-源码位于 `src/`，头文件位于 `header/`。CMake 将工程拆为多个 `SHARED`（动态库）目标；部分目标链接 Windows 用户接口相关库（`user32`、`shell32`）；另有目标链接 Python 3.13 的导入库，用于在原生代码中与 Python C API 交互。
+源码位于 `src/`，头文件位于 `header/`。CMake 将工程拆为多个 **`SHARED`（动态库）或 `static`（静态库）** 目标；部分目标链接 Windows 用户接口相关库（`user32`、`shell32`）；另有目标链接 Python 3.13 的导入库，用于在原生代码中与 Python C API 交互。
 
 ---
 
@@ -39,6 +42,7 @@
 | `maths` | `src/maths.c` | — |
 | `python` | `src/python.c` | 链接 `lib/python313`；包含 `header/include` |
 | `times` | `src/time.c` | — |
+| `cpu` | `src/cpu.asm` | — |
 
 ---
 
@@ -48,7 +52,7 @@
 |------|------|
 | 操作系统 | Windows，使用 MSVC 工具链 |
 | CMake | 版本不低于 3.8 |
-| 生成器 | 例如已生成的 Visual Studio 解决方案（如 `build/Release` 下） |
+| 生成器 | 例如已生成的 Visual Studio 解决方案（如 `result` 下） |
 | Python（可选） | 若编译含 Python 的目标：在 `lib/` 放置 `python313.lib` 及匹配的 `python313.dll`（头文件路径见 CMake） |
 
 ---
@@ -63,7 +67,7 @@ dll/
 ├── lib/                # 如 python313.lib、python313.dll（链接 / 运行）
 ├── result/             # build.bat 执行后的整理输出（见下文）
 ├── src/                # C/C++ 源码
-└── special/            # 项目自用附加目录（若使用）
+├── make.bat            # 一键 Release 构建
 ```
 
 `build/` 存放生成文件；`result/` 为脚本整理后的输出目录，便于分发或测试。
@@ -75,11 +79,11 @@ dll/
 1. 确认已完成 CMake 配置（例如已在 `build/Release` 下生成 Visual Studio 工程）。
 2. 在仓库根目录执行：
 
-   ```bat
-   build.bat
-   ```
+```bat
+build.bat
+```
 
-3. 脚本会执行 Release 构建，并将产物复制到 `result` 目录。
+3. 脚本会执行 `cmake --build build/Release --config Release`，并将 Release 输出复制到 `result/`。
 
 若需重新配置 CMake，可根据本机环境修改生成器与路径，例如：
 
@@ -116,6 +120,20 @@ cmake -S build/Release -B build/Release -G "Visual Studio 17 2022" -A x64
 1. **禁止非法使用。** 不得以违法目的使用项目文件或产物，包括但不限于用于网络攻击、恶意软件、欺诈或其他有害、犯罪行为。
 2. **不得更改原有协议。** 不得删除或篡改本开发者协议及随项目分发的 MIT 许可证正文；再分发时必须完整保留上述条款，并与相同资料一并提供且清晰可辨。
 3. **禁止制作无意义内容并公开。** 不得基于本项目制作无实质内容、空洞或故意误导的衍生内容并公开发布（例如垃圾仓库、无意义的 fork、冒充原创的搬运等）。
+
+---
+
+## 静态库编译（static）
+
+可为所有目标启用 **static（静态库）** 编译模式。
+
+在 `CMakeLists.txt` 中找到如下一行：
+
+```cmake
+if(0)
+```
+
+将其改为 `if(1)` 后重新配置并编译，即可得到静态库（`.lib`）。
 
 ---
 

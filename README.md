@@ -8,21 +8,24 @@ A CMake-based Windows project that builds multiple shared libraries (`.dll`) in 
 
 ## Table of contents
 
-1. [Overview](#overview)
-2. [Built artifacts](#built-artifacts)
-3. [Requirements](#requirements)
-4. [Repository layout](#repository-layout)
-5. [Build](#build)
-6. [Output layout](#output-layout)
-7. [Python linkage](#python-linkage)
-8. [Developer agreement](#developer-agreement)
-9. [License (MIT)](#license-mit)
+- [Native DLL Collection (`dll`)](#native-dll-collection-dll)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Built artifacts](#built-artifacts)
+  - [Requirements](#requirements)
+  - [Repository layout](#repository-layout)
+  - [Build](#build)
+  - [Output layout](#output-layout)
+  - [Python linkage](#python-linkage)
+  - [Developer agreement](#developer-agreement)
+  - [static](#static)
+  - [License (MIT)](#license-mit)
 
 ---
 
 ## Overview
 
-This repository contains C/C++ sources under `src/` and headers under `header/`. CMake defines several `SHARED` targets; some link against the Win32 API (`user32`, `shell32`), and two targets link against the Python 3.13 import library for embedding or extending Python from native code.
+This repository contains C/C++ sources under `src/` and headers under `header/`. CMake defines several `SHARED` or `static`targets; some link against the Win32 API (`user32`, `shell32`), and two targets link against the Python 3.13 import library for embedding or extending Python from native code.
 
 ---
 
@@ -39,6 +42,7 @@ This repository contains C/C++ sources under `src/` and headers under `header/`.
 | `maths` | `src/maths.c` | — |
 | `python` | `src/python.c` | Links `lib/python313`; includes `header/include` |
 | `times` | `src/time.c` | — |
+|`cpu` | `src/cpu.asm` | — |
 
 ---
 
@@ -48,7 +52,7 @@ This repository contains C/C++ sources under `src/` and headers under `header/`.
 |------|---------|
 | OS | Windows (MSVC toolchain) |
 | CMake | ≥ 3.8 |
-| Generator | Visual Studio (e.g. solution under `build/Release`) |
+| Generator | Visual Studio (e.g. solution under `result`) |
 | Python (optional) | Python 3.13 dev files: `python313.lib` and matching `python313.dll` under `lib/` for `python` / `python_function` targets |
 
 ---
@@ -62,8 +66,8 @@ dll/
 ├── header/             # Project headers; Python headers may be referenced from here for some targets
 ├── lib/                # e.g. python313.lib, python313.dll (link / runtime)
 ├── result/             # Staged output after build.bat (see below)
-├── src/                # C/C++ sources
-└── special/            # Project-specific extras (if used)
+├── src/                # C/C++ sources      
+├── make.bat            # One-click Release build 
 ```
 
 Keep generated files under `build/`; treat `result/` as a staging folder for redistributable binaries.
@@ -74,11 +78,9 @@ Keep generated files under `build/`; treat `result/` as a staging folder for red
 
 1. Ensure the CMake project is configured (e.g. Visual Studio solution already generated under `build/Release`).
 2. From the repository root, run:
-
-   ```bat
-   build.bat
-   ```
-
+```bat
+build.bat
+```
 3. This runs `cmake --build build/Release --config Release` and then copies the Release output into `result/`.
 
 To reconfigure CMake from scratch (example):
@@ -116,6 +118,15 @@ When using materials from this project (including this documentation, source cod
 3. **No meaningless public distribution.** You must not create meaningless, empty, or deliberately misleading derivative content based on this project and publish it publicly (for example spam repositories, junk forks, or reposts presented as substantive original work).
 
 ---
+
+## static
+We set the `static` compile mode for all targets.
+you can only find this line in `CMakeLists.txt`:
+```cmake
+if(0)
+```
+and change it to `if(1)` and rebuild,you can get static library.
+
 
 ## License (MIT)
 

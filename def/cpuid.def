@@ -1,0 +1,4 @@
+; cpuid.def
+LIBRARY cpuid
+EXPORTS
+    GetCpuVendor

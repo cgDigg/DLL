@@ -42,7 +42,7 @@ This repository contains C/C++ sources under `src/` and headers under `header/`.
 | `maths` | `src/maths.c` | — |
 | `python` | `src/python.c` | Links `lib/python313`; includes `header/include` |
 | `times` | `src/time.c` | — |
-|`cpu` | `src/cpu.asm` | — |
+| `cpuid` | `cpu.asm`, `lib/cpu.c` | MASM at repo root (avoids VS `Release\\src\\` obj path bug) |
 
 ---
 
@@ -51,7 +51,7 @@ This repository contains C/C++ sources under `src/` and headers under `header/`.
 | Item | Details |
 |------|---------|
 | OS | Windows (MSVC toolchain) |
-| CMake | ≥ 3.8 |
+| CMake | ≥ 3.20 |
 | Generator | Visual Studio (e.g. solution under `result`) |
 | Python (optional) | Python 3.13 dev files: `python313.lib` and matching `python313.dll` under `lib/` for `python` / `python_function` targets |
 

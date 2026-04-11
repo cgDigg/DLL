@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <windows.h>
+#include <math.h>
 __declspec(dllexport) double gamma(double value) {
 	return tgamma(value);
 }

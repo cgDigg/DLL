@@ -1,5 +1,5 @@
 // time_utils.h
-#pragma comment(lib, "times.lib")
+
 #ifndef TIME_UTILS_H
 #define TIME_UTILS_H
 

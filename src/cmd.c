@@ -51,10 +51,14 @@ def int mkdir(const char* path) {
     return CreateDirectoryA(path, NULL) ? 0 : -1;
 }
 def char* input(char* question) {
-    if (!question) return -1;
+    if (!question) return NULL;
     printf("%s", question);
     char buf[1024];
-    fgets(buf, 1024, (__acrt_iob_func(0)));
-    return buf;
+    if (!fgets(buf, sizeof(buf), stdin)) return NULL;
+    size_t n = strlen(buf);
+    char* out = (char*)malloc(n + 1);
+    if (!out) return NULL;
+    memcpy(out, buf, n + 1);
+    return out;
 }
 // 如果你确实需要递归删除非空目录，需自己实现（较复杂）

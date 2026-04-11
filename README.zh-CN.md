@@ -1,4 +1,4 @@
-﻿﻿# 原生 DLL 工程（`dll`）
+﻿# 原生 DLL 工程（`dll`）
 
 > **语言：** 简体中文 · [English](README.md)
 
@@ -42,7 +42,7 @@
 | `maths` | `src/maths.c` | — |
 | `python` | `src/python.c` | 链接 `lib/python313`；包含 `header/include` |
 | `times` | `src/time.c` | — |
-| `cpu` | `src/cpu.asm` | — |
+| `cpuid` | `cpu.asm`、`lib/cpu.c` | MASM 源放在仓库根目录，避免 VS 在 `Release\\src\\` 下生成 obj 失败 |
 
 ---
 
@@ -51,7 +51,7 @@
 | 项目 | 说明 |
 |------|------|
 | 操作系统 | Windows，使用 MSVC 工具链 |
-| CMake | 版本不低于 3.8 |
+| CMake | 版本不低于 3.20 |
 | 生成器 | 例如已生成的 Visual Studio 解决方案（如 `result` 下） |
 | Python（可选） | 若编译含 Python 的目标：在 `lib/` 放置 `python313.lib` 及匹配的 `python313.dll`（头文件路径见 CMake） |
 

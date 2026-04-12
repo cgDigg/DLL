@@ -14,6 +14,7 @@ A CMake-based Windows project that builds multiple shared libraries (`.dll`) in 
   - [Built artifacts](#built-artifacts)
   - [Requirements](#requirements)
   - [Repository layout](#repository-layout)
+  - [install](#install)
   - [Build](#build)
   - [Output layout](#output-layout)
   - [Python linkage](#python-linkage)
@@ -67,10 +68,19 @@ dll/
 ├── lib/                # e.g. python313.lib, python313.dll (link / runtime)
 ├── result/             # Staged output after build.bat (see below)
 ├── src/                # C/C++ sources      
-├── make.bat            # One-click Release build 
+├── install.bat         #install tool bat
+├── bat/                # Batch files
 ```
 
 Keep generated files under `build/`; treat `result/` as a staging folder for redistributable binaries.
+
+---
+
+## install
+after install, you can find the install path in `install.bat`
+```bat
+install.bat
+```
 
 ---
 

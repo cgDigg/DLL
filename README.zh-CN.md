@@ -14,6 +14,8 @@
   - [构建产物](#构建产物)
   - [环境要求](#环境要求)
   - [仓库结构](#仓库结构)
+  - [安装](#安装)
+  - [经过下载dll项目后,你并没有完全成功,你需要安装完毕,请运行`install.bat`](#经过下载dll项目后你并没有完全成功你需要安装完毕请运行installbat)
   - [编译](#编译)
   - [输出目录](#输出目录)
   - [Python 链接说明](#python-链接说明)
@@ -67,13 +69,16 @@ dll/
 ├── lib/                # 如 python313.lib、python313.dll（链接 / 运行）
 ├── result/             # build.bat 执行后的整理输出（见下文）
 ├── src/                # C/C++ 源码
-├── make.bat            # 一键 Release 构建
+├── install.bat         #安装文件
 ```
 
 `build/` 存放生成文件；`result/` 为脚本整理后的输出目录，便于分发或测试。
 
 ---
 
+## 安装
+经过下载dll项目后,你并没有完全成功,你需要安装完毕,请运行`install.bat`
+---
 ## 编译
 
 1. 确认已完成 CMake 配置（例如已在 `build/Release` 下生成 Visual Studio 工程）。

@@ -1,6 +1,6 @@
 #ifndef MATH_UTILS_H
 #define MATH_UTILS_H
-#pragma comment(lib, "maths.lib")
+
 #ifdef __cplusplus
 extern "C" {
 #endif

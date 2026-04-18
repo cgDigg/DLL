@@ -1,6 +1,6 @@
 #ifndef PYTHON_EMBED_H
 #define PYTHON_EMBED_H
-#pragma comment(lib, "python.lib")
+
 #ifdef __cplusplus
 extern "C" {
 #endif

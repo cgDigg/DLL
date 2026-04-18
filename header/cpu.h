@@ -4,7 +4,7 @@
 #if __cplusplus
 extern "C" {
 #endif
-API char* GetCpuVendor();
+API char* GetCpuVendor(value);
 #if __cplusplus
 }
 #endif

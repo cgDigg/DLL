@@ -1,5 +1,5 @@
 // mylib.h
-#pragma comment(lib, "radon.lib")
+
 #ifndef MYLIB_H
 #define MYLIB_H
 

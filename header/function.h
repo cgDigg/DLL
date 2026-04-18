@@ -1,6 +1,6 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
-#pragma conment(lib, "function.lib")
+
 #ifdef __cplusplus
 extern "C" {
 #endif

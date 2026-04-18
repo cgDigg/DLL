@@ -1,6 +1,6 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H
-#pragma comment(lib, "string.lib")
+
 #ifdef __cplusplus
 extern "C" {
 #endif
